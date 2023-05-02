@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Jquery.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <!-- Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <!-- Bootstrap.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <!-- Font: Aboreto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aboreto&display=swap">
+
+    <title>Sign Up</title>
+    <style>
+      html,body{
+        height: 100%;
+      }
+      body{
+        background-image: url("img/login.jpg");
+        background-position: center; /* Center the image */
+        background-attachment: fixed;
+        background-repeat: no-repeat; /* no-repeat: Do not repeat the image */
+        background-size: cover; /* Resize the background image to cover the entire container */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .login{
+        width: 80%;
+        height: 80%;
+        background-color: rgba(255,255,255,0.1);
+        backdrop-filter: blur(4px); /* safari ng ; chrome ok */
+        -webkit-backdrop-filter: blur(4px); /* safari ok ; chrome ng */
+        border-radius: 20px;
+        padding: 20px;
+        color:#fff
+      }
+      form h2{
+        display: flex;
+        justify-content: center;
+        font-size: 40px;
+        font-family: 'Aboreto', cursive;
+      }
+      form .btn{
+        background-color: #b48d06;
+        color: #fff;
+      }
+      form .btn:hover{
+        background-color: #fcb900;
+      }
+      a {
+        text-decoration: none;  /* 連結文字無底線 */
+        color: #fff;
+        font-family: 'Aboreto', cursive;
+        font-size: 15px;
+      }
+      a:hover{
+        text-decoration: underline;
+      }
+
+    </style>
+    <!-- 新增整個script -->
+    <script>
+	$(document).ready(function() {
+		
+		
+		<!--取消按鈕-->
+		function goHome(){
+			window.location.href="http://localhost:8080/";
+			console.log('goHome is run');
+		}
+
+			$("#backHome").click(goHome);
+			console.log('back is run');
+		
+		
+		
+		$('#register-form').submit(function(event) {
+			
+			event.preventDefault();
+
+			var chinesName = $("#chinesName").val();
+			var englishName = $("#englishName").val();
+			var email = $("#email").val();
+			
+			var password=null;
+			
+			var passwordCheck = $("#password").val();
+			var ConfirmPasswordCheck=$("#ConfirmPassword").val();
+			
+			
+				if(passwordCheck==ConfirmPasswordCheck)
+					var password = $("#password").val();
+				else {
+					alert("重複輸入密碼必須相同");
+				}
+			
+			
+
+			var age = $("#age").val();
+			var address = $("#address").val();
+			var cellphone = $("#cellphone").val();
+			var gender = $("#gender").val() == "M" ? 1 : 0; // 將 "M" 轉換為 1，"F" 轉換為 0
+
+			var data = {
+				"email" : email,
+				"chinesName" : chinesName,
+				"englishName" : englishName,
+				"password" : password,
+				"address" : address,
+				"age" : age,
+				"cellphone" : cellphone,
+				"gender" : gender
+			};
+
+			$.ajax({
+				type : 'POST',
+				url : 'add',
+				data : JSON.stringify(data),
+				contentType : "application/json;charset=utf-8",
+				dataType : "html",
+				success : function(resp, textStatus, xhr) {
+					if(resp=='AddSuccess'){
+						console.log(`resp=${resp}`);
+						$('#message').text('註冊已成功');
+						alert('註冊已成功');
+					}else{
+						$('#message').text('email重複');
+					}
+					
+					
+				},
+				error : function() {
+					$('#message').text('註冊失敗，請檢查輸入資料是否正確');
+				}
+			});
+		});
+	});
+</script>
+    <!-- 新增整個script -->
+    
+  </head>
+  <body>
+						<!-- 新增id  -->
+    <form class="login" id="register-form">
+      <h2>Sign Up</h2>
+      <div class="row mb-3">
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label for="chinesName">Chinese Name</label>
+            <input type="text" class="form-control" id="chinesName" placeholder="Chinese Name" name="chinesName" required>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label for="englishName">English Name</label>
+            <input type="text" class="form-control" id="englishName" placeholder="English Name" name="englishName">
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" class="form-control" id="email" placeholder="Email Address" name="email" required>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
+          </div>
+        </div>
+        <div class="col-6 col-md-3">
+          <div class="form-group">
+            <label for="age">Age</label>
+            <input type="number" class="form-control" id="age" placeholder="Age" name="age" min="1"><!-- 新增最低值 -->
+          </div>
+        </div>
+       	
+       	<!-- <div class="col-6 col-md-3">
+          <div class="form-group">
+            <label for="gender">Gender</label>
+            <input type="text" class="form-control" id="gender" placeholder="Gender" name="gender">
+          </div>
+        </div>  --> 
+       
+       <!-- 修改 將性別改為下拉式選單 -->
+        <label for="gender">Gender</label> 
+				<select class="form-control" placeholder="Gender" name="gender" id="gender">
+						<option value="M">男</option>
+						<option value="F">女</option>
+				</select>
+        
+        
+      </div>
+      <div class="row mb-3">
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label for="password">Confirm Password</label>
+            <input type="password" class="form-control" id="ConfirmPassword" placeholder="Confirm Password" name="password" required>
+            <div class="valid-feedback">Valid.</div>
+            <div class="invalid-feedback">Please fill out this field.</div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label for="cellPhone">Cell Phone</label>
+            <input type="tel" class="form-control" id="cellPhone" placeholder="Cell Phone" name="cellPhone">
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" class="form-control" id="address" placeholder="Address" name="address">
+          </div>
+        </div>
+      </div>
+      <div class="form-group form-check">
+        <label class="form-check-label">
+          <input class="form-check-input" type="checkbox" name="remember" required>I agree to the Terms and Conditions and cookies and privacy policy.
+          <div class="valid-feedback">Valid.</div>
+          <div class="invalid-feedback">Check this checkbox to continue.</div>
+        </label>
+      </div>
+      <div class="row mt-5 mb-3">
+        <div class="col-6">
+          <button type="submit" class="btn w-100">Sign Up</button>
+        </div>
+        <div class="col-6">						<!-- 修改 Cancel改名為Back Home  且新增id-->
+          <button type="submit" class="btn w-100" id="backHome">Back Home</button>
+        </div>
+      </div>
+      <a href="http://localhost:8080/login">Already a Member? Login</a>
+   			<!-- 修改為連接到 http://localhost:8080/login-->
+    </form>
+    <!-- 新增 -->
+    <div id="message"></div>
+  </body>
+</html>

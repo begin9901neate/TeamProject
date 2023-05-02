@@ -1,0 +1,75 @@
+aside {
+	flex-shrink: 0;
+	position: relative;
+	left: 0;
+	display: flex;
+	flex-direction: column;
+	width: 150px;
+	padding: 15px 25px;
+	font-size: 18px;
+	box-shadow: 1px 0px 5px #a6a6a6;
+	background-color: #fff;
+}
+
+aside.fold {
+	width: 0;
+	padding: 15px 0;
+	animation-name: fold_aside;
+  	animation-duration: 1s;
+}
+
+aside.unfold {
+	animation-name: unfold_aside;
+  	animation-duration: 1s;
+}
+
+aside > .tag {
+	width: 100%;
+	margin-bottom: 15px;
+	padding: 2.5px 0;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	cursor: pointer;
+}
+
+.aside_action_btn {
+	position: absolute;
+	top: 0;
+	right: -25px;
+	width: 25px;
+	height: 25px;
+	background-color: #fff;
+	background-image: url("../../img/backstage/left_arrow.png");
+	background-repeat: no-repeat;
+	background-position: 2.5px 2.5px;
+	background-size: 20px 20px;
+	box-shadow: 3px 2px 5px #a6a6a6;
+	cursor: pointer;
+}
+
+aside.fold .aside_action_btn {
+	background-image: url("../../img/backstage/right_arrow.png");
+}
+
+@keyframes fold_aside {
+	from {
+		width: 150px;
+		padding: 15px 25px;
+	}
+	to {
+		width: 0;
+		padding: 15px 0;
+	}
+}
+
+@keyframes unfold_aside {
+	from {
+		width: 0;
+		padding: 15px 0;
+	}
+	to {
+		width: 150px;
+		padding: 15px 25px;
+	}
+}

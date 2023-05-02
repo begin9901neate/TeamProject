@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>OrderRooms</title>
+</head>
+<body>
+
+<h3>Rooms</h3>
+<table border="1">
+  <tr>
+  <th>編號</th>
+  <th>分店</th>
+  <th>房型</th>
+  <th>容貓數</th>
+  <th>價格</th>
+  <th>房間大小</th>
+  <th>設備</th>
+  <th>備註</th>
+  <th>建立時間</th>
+  <th>更新時間</th>
+  <th>刪除時間</th>
+ </tr>
+    <tr th:each="rss : ${roomses} " th:object="${rss}">
+        <td th:text="*{id}"></td>
+        <td th:text="*{branch.name}"></td>
+        <td th:text="*{name}"></td>
+        <td th:text="*{maxPetNumber}"></td>
+        <td th:text="*{price}"></td>
+        <td th:text="*{size}"></td>
+        <td th:text="*{equipment}"></td>
+        <td th:text="*{note}"></td>
+        <td th:text="*{createdAt}"></td>
+        <td th:text="*{updatedAt}"></td>
+        <td th:text="*{deletedAt}"></td>
+    </tr>
+</table>
+
+<h3>Users</h3>
+<table border="1">
+  <tr>
+  <th>編號</th>
+  <th>職位英文</th>
+  <th>email</th>
+  <th>密碼</th>
+  <th>中文姓名</th>
+  <th>英文姓名</th>
+  <th>手機</th>
+  <th>地址</th>
+  <th>年紀</th>
+  <th>性別</th>
+  <th>建立時間</th>
+  <th>更新時間</th>
+  <th>刪除時間</th>
+ </tr>
+    <tr th:each="us : ${userses} " th:object="${us}">
+        <td th:text="*{id}"></td>
+        <td th:text="*{permissionSet.tittleEn}"></td>
+        <td th:text="*{email}"></td>
+        <td th:text="*{password}"></td>
+        <td th:text="*{chinesName}"></td>
+        <td th:text="*{englishName}"></td>
+        <td th:text="*{cellphone}"></td>
+        <td th:text="*{address}"></td>
+        <td th:text="*{age}"></td>
+        <td th:text="*{gender}"></td>
+        <td th:text="*{createdAt}"></td>
+        <td th:text="*{updatedAt}"></td>
+        <td th:text="*{deletedAt}"></td>
+
+    </tr>
+</table>
+
+<h3>RoomSession</h3>
+
+<form action="findRoomSessionByRooms" method ="post">
+	房型:
+	<select name = "rooms" th:field="${rooms.id}">
+		<option th:each="rooms : ${roomses}" 
+	          	th:value="${rooms.id}" 
+	          	th:text="${rooms.name}">
+	    </option>
+	</select>
+
+	<input type="submit" value="Submit"/>
+	<a href="findRoomSession"><input type="button" value="Show All RoomSession"/></a>
+</form>
+
+<form action="findRoomSessionByUsers" method ="post">
+	使用者:
+	<select name = "users" th:field="${users.id}">
+		<option th:each="users : ${userses}" 
+	          	th:value="${users.id}" 
+	          	th:text="${users.chinesName}">
+	    </option>
+	</select>
+
+	<input type="submit" value="Submit"/>
+	<a href="findRoomSession"><input type="button" value="Show All RoomSession"/></a>
+</form>
+
+<table border="1">
+  <tr>
+  <th>編號</th>
+  <th>客戶編號</th>
+  <th>房型編號</th>
+  <th>訂單編號</th>
+  <th>報到</th>
+  <th>報到時間</th>
+  <th>貓數</th>
+  <th>備註</th>
+  <th>預約時間</th>
+  <th>開始時間</th>
+  <th>結束時間</th>
+  <th>建立時間</th>
+  <th>更新時間</th>
+ </tr>
+	<tr th:each="rs : ${roomSession} " th:object="${rs}">
+        <td th:text="*{id}"></td>
+        <td th:text="*{users.id}"></td>
+        <td th:text="*{rooms.id}"></td>
+        <td th:text="*{orderRooms.id}"></td>
+        <td th:text="*{attendType}"></td>
+        <td th:text="*{checkinTime}"></td>
+        <td th:text="*{petNum}"></td>
+        <td th:text="*{note}"></td>
+        <td th:text="*{reservationTime}"></td>
+        <td th:text="*{startDatetime}"></td>
+        <td th:text="*{endDatetime}"></td>
+        <td th:text="*{createdAt}"></td>
+        <td th:text="*{updatedAt}"></td>
+    </tr>
+</table>
+</body>
+</html>

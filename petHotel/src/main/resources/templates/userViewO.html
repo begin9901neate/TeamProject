@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<title>User Details</title>
+</head>
+<body>
+	<div class="container">
+		<table class="table table-bordered table-striped table-hover">
+			<thead>
+				<tr>
+					<th>email</th>
+					<th>password</th>
+					<th>chinese_name</th>
+					<th>english_name</th>
+					<th>cellphone</th>
+					<th>address</th>
+					<th>age</th>
+					<th>gender</th>
+				</tr>
+			</thead>
+			<tbody>
+				<td><span th:text="${user.email}"></span></td>
+				<td><span th:text="${user.password}"></span></td>
+				<td><span th:text="${user.chinesName}"></span></td>
+				<td><span th:text="${user.englishName}"></span></td>
+				<td><span th:text="${user.cellphone}"></span></td>
+				<td><span th:text="${user.address}"></span></td>
+
+				<td><span th:text="${user.age == 0} ? '未填寫' : ${user.age}"></span>
+				</td>
+
+				<td><span th:text="${user.gender==0} ? '女' : '男' "></span></td>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

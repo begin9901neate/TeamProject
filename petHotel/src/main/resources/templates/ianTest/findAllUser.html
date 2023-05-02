@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style>
+.btn-custom {
+	background-color: orange; /* 橘色*/
+	color: #FFFFFF; /*白字*/
+}
+</style>
+
+<title>所有使用者資料</title>
+</head>
+<body>
+	<div class="container">
+		<div class="text-center">
+
+			<table class="table table-bordered table-striped table-hover">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Email</th>
+						<th>Password</th>
+						<th>Address</th>
+						<th>Chinese Name</th>
+						<th>English Name</th>
+						<th>Cell Phone</th>
+						<th>Gender</th>
+						<th>Age</th>
+						<th>Created At</th>
+						<th>Permission Id</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="test:${users}">
+						<td th:text="${test.id}">預設</td>
+						<td th:text="${test.email}">預設</td>
+						<td th:text="${test.password}">預設</td>
+						<td th:text="${test.address}">預設</td>
+						<td th:text="${test.chinesName}">預設</td>
+						<td th:text="${test.englishName}">預設</td>
+						<td th:text="${test.cellphone}">預設</td>
+						<td><span th:text="${test.gender==0} ? '女' : '男' "></span></td>
+
+						<!-- <td th:text="${test.age}">預設</td> -->
+						<td><span th:text="${test.age == 0} ? '未填寫' : ${test.age}"></span>
+						</td>
+
+						<td th:text="${test.createdAt}">預設</td>
+						<td th:text="${test.permission_id}">預設</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Update Room</title>
+</head>
+<body>
+<form action="RoomUpdate" th:object="${room}" method ="post">
+ name:<input type="text" name="name" th:field="*{name}"/><br/>
+ <!--branch name:<input type="text" name = "branchName" th:field="*{branch.name}"/><br/>-->
+    branch name:<select name="BranchName" id="BN2">
+    <option th:each="Branch : ${branch}" th:object="${Branch}"  th:text="${Branch.name}" th:value="${Branch.id}">
+    </option>
+		</select>
+		<br/>
+ max pet number:<input type="text" name="maxPetNumber" th:field="*{maxPetNumber}"/><br/>
+ price:<input type="text" name="price" th:field="*{price}"/><br/>
+ size:<input type="text" name="size" th:field="*{size}"/><br/>
+ equipment:<input type="text" name="equipment" th:field="*{equipment}"/><br/>
+ note:<input type="text" name="note" th:field="*{note}"/><br/>
+ <input type="hidden" name ="id" th:field="*{id}"/>
+ <input type="submit" value="Submit"/>
+</form>
+</body>
+</html>

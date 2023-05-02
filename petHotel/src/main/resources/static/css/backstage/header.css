@@ -1,0 +1,40 @@
+header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 80px;
+	padding: 15px 25px;
+	box-shadow: 0px 1px 5px #a6a6a6;
+	background-color: #fff;
+}
+
+header.locked {
+	position: fixed;
+	top: 0;
+}
+
+.pets_img {
+	width: 80px;
+	height: 80px;
+}
+
+.header_right {
+	display: flex;
+	align-items: center;
+}
+
+.user_name {
+	margin-right: 15px;
+	max-width: 200px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+
+.logout_btn {
+	width: 60px;
+	height: 40px;
+	border-radius: 30px;
+	font-weight: bold;
+	cursor: pointer;
+}

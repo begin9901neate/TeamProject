@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<title>後臺管理</title>
+	<link rel="icon" type="image/x-icon" th:href="@{/img/backstage/claw.png}">
+	<meta name="author" content="Hao Yuang Li">
+	<!-- local css -->
+	<link th:href="@{/css/backstage/common.css}" rel="stylesheet"/>
+	<link th:href="@{/css/backstage/header.css}" rel="stylesheet"/>
+	<link th:href="@{/css/backstage/aside.css}" rel="stylesheet"/>
+	<link th:href="@{/css/backstage/footer.css}" rel="stylesheet"/>
+	<link th:href="@{/css/backstage/index.css}" rel="stylesheet"/>
+	<!-- local js -->
+	<script th:src="@{/js/backstage/header.js}"></script>
+	<script th:src="@{/js/backstage/aside.js}"></script>
+	<script th:src="@{/js/backstage/index.js}"></script>
+	<!-- jQuery -->
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<!-- Font Awesome -->
+	<script src="https://kit.fontawesome.com/2aca1140a6.js" crossorigin="anonymous"></script>
+</head>
+<body>
+	<th:block th:include="backstage/header"/></th:block>
+	<article>
+		<th:block th:include="backstage/aside"/></th:block>
+		<content>
+			<h1>最新公告</h1>
+			<hr></hr>
+			<ul>
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+			</ul>
+		</content>
+	</article>
+	<th:block th:include="backstage/footer"/></th:block>
+	<input type="hidden" id="dynamically_loaded_js_file_name" />
+	<div class="scroll_to_top_btn" id="scroll_to_top_btn"></div>
+	<div class="loading_light_box" id="loading_light_box">
+		<img th:src="@{/img/backstage/loading.gif}" class="loading_img" />
+	</div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Branch & Rooms</title>
+</head>
+<body>
+
+<h3>Branch</h3>
+<table border="1">
+  <tr>
+  <th>編號</th>
+  <th>名稱</th>
+  <th>地址</th>
+  <th>手機</th>
+  <th>建立時間</th>
+  <th>更新時間</th>
+  <th>刪除時間</th>
+
+ </tr>
+    <tr th:each="bs : ${branches} " th:object="${bs}">
+        <td th:text="*{id}"></td>
+        <td th:text="*{name}"></td>
+        <td th:text="*{address}"></td>
+        <td th:text="*{cellphone}"></td>
+		<td th:text="*{createdAt}"></td>
+        <td th:text="*{updatedAt}"></td>
+        <td th:text="*{deletedAt}"></td>
+    </tr>
+</table>
+
+<h3>Rooms</h3>
+<form action="findRoomsByBranch" method ="post">
+	分店:
+	<select name = "branch" th:field="${branch.id}">
+		<option th:each="branch : ${branches}" 
+	          	th:value="${branch.id}" 
+	          	th:text="${branch.name}">
+	    </option>
+	</select>
+
+	<input type="submit" value="Submit"/>
+	<a href="findRooms"><input type="button" value="Show All Rooms"/></a>
+</form>
+
+<table border="1">
+  <tr>
+    <th>編號</th>
+    <th>分店</th>
+    <th>房型</th>
+    <th>容貓數</th>
+    <th>價格</th>
+    <th>房間大小</th>
+    <th>設備</th>
+    <th>備註</th>
+    <th>建立時間</th>
+    <th>更新時間</th>
+    <th>刪除時間</th>
+  </tr>
+  <tr th:each="rs : ${roomses} " th:object="${rs}">
+    <td th:text="*{id}"></td>
+    <td th:text="*{branch.name}"></td>
+    <td th:text="*{name}"></td>
+    <td th:text="*{maxPetNumber}"></td>
+    <td th:text="*{price}"></td>
+    <td th:text="*{size}"></td>
+    <td th:text="*{equipment}"></td>
+    <td th:text="*{note}"></td>
+    <td th:text="*{createdAt}"></td>
+    <td th:text="*{updatedAt}"></td>
+    <td th:text="*{deletedAt}"></td>
+  </tr>
+</table>
+
+
+
+</body>
+</html>

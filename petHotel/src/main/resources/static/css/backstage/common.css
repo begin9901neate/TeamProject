@@ -1,0 +1,36 @@
+:root {
+	--blue: #33ccff;
+	--red: #ff3333;
+	--green: #40bf40;
+	--yellow: #ffff33;
+	--white: #f7f7f7;
+}
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    border: 0; 
+}
+
+html {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	background-color: #e8e8e8;
+}
+
+h1 {
+	margin: 0 0 20px 0;
+}
+
+hr {
+	margin: 8px 0;
+	border: 1px inset;
+}
+
+ul {
+	padding: 0 0 0 40px;
+	margin: 16px 0 0 0;
+}

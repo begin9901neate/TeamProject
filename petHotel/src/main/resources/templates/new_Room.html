@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Create New Room</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script >
+    
+    </script>
+</head>
+<body>
+
+<form action="saveRoom" method ="post">
+   店鋪:<select name="BranchName" id="BN2">
+    <option th:each="Branch : ${branch}" th:object="${Branch}"  th:text="${Branch.name}" th:value="${Branch.id}">
+    </option>
+		</select>
+		<br/>
+   房名:<input type="text" name="RoomName"/><br/>
+   可容納寵物數量:<input type="text" name = "max_pet_number"/><br/>
+   房間尺寸：<input type="text" name="RoomSize"/><br/>
+   設備：<input type="text" name="equipment"/><br/>
+   價格:<input type="text" name ="price"/><br/>
+   備註：<input type="text" name ="note"/><br/>
+   
+ <input type="submit" value="Submit"/>
+</form>
+</body>
+</html>

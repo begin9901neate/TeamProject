@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>OrderRooms</title>
+</head>
+<body>
+
+<h3>Rooms</h3>
+<table border="1">
+  <tr>
+  <th>編號</th>
+  <th>分店</th>
+  <th>房型</th>
+  <th>容貓數</th>
+  <th>價格</th>
+  <th>房間大小</th>
+  <th>設備</th>
+  <th>備註</th>
+  <th>建立時間</th>
+  <th>更新時間</th>
+  <th>刪除時間</th>
+ </tr>
+    <tr th:each="rss : ${roomses} " th:object="${rss}">
+        <td th:text="*{id}"></td>
+        <td th:text="*{branch.name}"></td>
+        <td th:text="*{name}"></td>
+        <td th:text="*{maxPetNumber}"></td>
+        <td th:text="*{price}"></td>
+        <td th:text="*{size}"></td>
+        <td th:text="*{equipment}"></td>
+        <td th:text="*{note}"></td>
+        <td th:text="*{createdAt}"></td>
+        <td th:text="*{updatedAt}"></td>
+        <td th:text="*{deletedAt}"></td>
+    </tr>
+</table>
+
+<h3>Users</h3>
+<table border="1">
+  <tr>
+  <th>編號</th>
+  <th>職位英文</th>
+  <th>email</th>
+  <th>密碼</th>
+  <th>中文姓名</th>
+  <th>英文姓名</th>
+  <th>手機</th>
+  <th>地址</th>
+  <th>年紀</th>
+  <th>性別</th>
+  <th>建立時間</th>
+  <th>更新時間</th>
+  <th>刪除時間</th>
+ </tr>
+    <tr th:each="us : ${userses} " th:object="${us}">
+        <td th:text="*{id}"></td>
+        <td th:text="*{permissionSet.tittleEn}"></td>
+        <td th:text="*{email}"></td>
+        <td th:text="*{password}"></td>
+        <td th:text="*{chinesName}"></td>
+        <td th:text="*{englishName}"></td>
+        <td th:text="*{cellphone}"></td>
+        <td th:text="*{address}"></td>
+        <td th:text="*{age}"></td>
+        <td th:text="*{gender}"></td>
+        <td th:text="*{createdAt}"></td>
+        <td th:text="*{updatedAt}"></td>
+        <td th:text="*{deletedAt}"></td>
+
+    </tr>
+</table>
+
+<h3>OrderRooms</h3>
+
+<form action="findOrderRoomsByRooms" method ="post">
+	房型:
+	<select name = "rooms" th:field="${rooms.id}">
+		<option th:each="rooms : ${roomses}" 
+	          	th:value="${rooms.id}" 
+	          	th:text="${rooms.name}">
+	    </option>
+	</select>
+
+	<input type="submit" value="Submit"/>
+	<a href="findOrderRooms"><input type="button" value="Show All OrderRooms"/></a>
+</form>
+
+<form action="findOrderRoomsByUsers" method ="post">
+	使用者:
+	<select name = "users" th:field="${users.id}">
+		<option th:each="users : ${userses}" 
+	          	th:value="${users.id}" 
+	          	th:text="${users.chinesName}">
+	    </option>
+	</select>
+
+	<input type="submit" value="Submit"/>
+	<a href="findOrderRooms"><input type="button" value="Show All OrderRooms"/></a>
+</form>
+
+<table border="1">
+  <tr>
+    <th>編號</th>
+    <th>客戶編號</th>
+    <th>房型編號</th>
+    <th>付款方式</th>
+    <th>合計</th>
+    <th>付款金額</th>
+    <th>取消原因</th>
+    <th>建立時間</th>
+    <th>更新時間</th>
+    <th>刪除時間</th>
+    <th></th>
+  </tr>
+  <tr th:each="ors : ${orderRooms} " th:object="${ors}">
+    <td th:text="*{id}"></td>
+    <td th:text="*{users.id}"></td>
+    <td th:text="*{rooms.id}"></td>
+    <td th:text="*{paymentMethod}"></td>
+    <td th:text="*{amount}"></td>
+    <td th:text="*{complete}"></td>
+    <td th:text="*{deletedReason}"></td>
+    <td th:text="*{createdAt}"></td>
+    <td th:text="*{updatedAt}"></td>
+    <td th:text="*{deletedAt}"></td>
+    <td>
+      <a th:href="@{updateOrderRoom(id=*{id})}">修改</a>
+	  <a th:href="@{deleteOrderRoom(id=*{id})}">刪除</a>
+    </td>
+  </tr>
+  <form action="createOrderRoom" method ="post">
+    <tr>
+      <td></td>
+      <td><input type="number" name="users.id"/></td>
+      <td><input type="number" name="rooms.id"/></td>
+      <td><input type="text" name="paymentMethod"/></td>
+      <td><input type="number" name="amount"/></td>
+      <td><input type="number" name="complete"/></td>
+      <td><input type="text" name="deletedReason"/></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td><input type="submit" value="新增"/></td>
+    </tr>
+  </form>
+ 
+</table>
+</body>
+</html>

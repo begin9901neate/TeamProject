@@ -1,0 +1,232 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="zh-TW">
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Jquery.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <!-- Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <!-- Bootstrap.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <!-- Bootstrap icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+	  <!-- Font: Aboreto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aboreto&display=swap">
+    
+	<!-- 會員驗證 js -->
+	<script th:src="@{/js/catNav.js}"></script>
+	
+    <title>PermissionSet 2，Employee</title>
+    <style>
+     
+     .btn-custom {
+	background-color: orange; /* 橘色*/
+	color: #FFFFFF; /*白字*/
+	}
+     
+      html,body{
+        height: 100%;
+        background-color: #796E65;
+      }
+      .catnav {
+        height: 9.5vh;
+        font-family: 'Aboreto', cursive;
+        font-weight: bold;
+        font-size: 16px;
+        color: #EBE9E8;
+      }
+      @media(max-width: 991px){
+        .sidebar{
+          background-color: rgba(255,255,255,0.15);
+          backdrop-filter: blur(10px); /* safari ng ; chrome ok */
+          -webkit-backdrop-filter: blur(10px); /* safari ok ; chrome ng */
+        }
+      }
+      #offcanvasLogin{
+        background-color: rgba(255,255,255,0.15);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        color: #fff;
+      }
+      #loginbtn {
+        text-decoration: none;  /* 連結文字無底線 */
+        color: rgba(255,255,255,0.7);
+      }
+      #loginbtn:hover {
+        color: #fff;
+      }
+      #signinbtn {
+        text-decoration: none;  /* 連結文字無底線 */
+        color: #fff;
+        background-color: #b48d06
+      }
+      #signinbtn:hover {
+        box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.4);
+      }
+      .login h2{
+        display: flex;
+        justify-content: center;
+        font-size: 40px;
+        font-family: 'Aboreto', cursive;
+      }
+      .login .btn{
+        background-color: #b48d06;
+        color: #fff;
+      }
+      .login .btn:hover{
+        background-color: #fcb900;
+      }
+      .login a {
+        text-decoration: none;  /* 連結文字無底線 */
+        color: #fff;
+        font-family: 'Aboreto', cursive;
+        font-size: 15px;
+      }
+      .login a:hover {
+        text-decoration: underline;
+      }
+      .catnav {
+        background: #796E65;
+      }
+      .adminSidebar {
+        background: #EBE9E8;
+        color: #796E65;
+      }
+      .adminSidebar a:hover {
+        color: #b48d06;
+      }
+      .content {
+        min-height: 76vh;
+        background-color: #fff;
+      }
+      .table {
+        table-layout: fixed;
+        width: 100%;
+      }
+      select {
+      	font-size: 30px;
+	  }
+      .footer {
+        min-height: 10vh; 
+        background-color: #796E65;
+        color: #fff;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Navbar -->
+    <th:block th:include="admin/adminNav"/></th:block>
+    
+    <!-- Admin Sidebar -->
+    <th:block th:include="admin/adminSidebar"/></th:block>
+
+      <!-- main content  -->
+      <div class="col-12 col-md-9 col-lg-10 content">
+        <div class="row p-3">
+          <!-- Breadcrumb -->
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <span>{</span>
+              <button type="button" class="sidebarBtn" style="width: 35px; border: 0; background-color: #fff;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#796E65" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+                  <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+                </svg>
+              </button><span>}</span>
+              <li class="breadcrumb-item ms-2"><a href="adminReport">Home</a></li>
+              <li class="breadcrumb-item"><a href="adminOrderRooms">Order Rooms</a></li>
+              <li class="breadcrumb-item active">Order Rooms Add</li>
+            </ol>
+          </nav>
+          <!-- Breadcrumb end -->
+		
+		
+		
+		
+		<div class="container">
+		<div class="text-center">
+			<table class="table table-bordered table-striped table-hover">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Email</th>
+						<!--<th>Password</th>  -->
+						<!--<th>Address</th>  -->
+
+						<th>Chinese Name</th>
+						<th>English Name</th>
+						<!--<th>Cell Phone</th>  -->
+
+						<th>Gender</th>
+						<!--<th>Age</th>  -->
+
+						<th>Created At</th>
+						<th>Permission Id</th>
+						<th>Freeze User</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="test:${users}">
+						<td th:text="${test.id}">預設</td>
+
+
+
+						<td><a
+							th:href="@{'http://localhost:8080/user/'+${test.email}}"><h6
+									th:text="${test.email}" style="width: 100px; overflow: auto"/></a></td><!-- 改 -->
+
+						<!--<td th:text="${test.password}">預設</td>  -->
+						<!--<td th:text="${test.address}">預設</td>  -->
+
+						<!--<td th:text="${test.age}">預設</td>  -->
+
+
+						<td th:text="${test.chinesName}">預設</td>
+						<td th:text="${test.englishName}">預設</td>
+						<!--<td th:text="${test.cellphone}">預設</td>  -->
+
+						<td><span th:text="${test.gender==0} ? '女' : '男' "></span></td>
+						<!--<td th:text="${test.age}">預設</td>  -->
+
+						<td th:text="${test.createdAt}">預設</td>
+						<td th:text="${test.permission_id}">預設</td>
+						
+						<td><a
+							th:href="@{'http://localhost:8080/delete/by2/'+${test.id}}"><h6
+									th:text="${test.email}" style="width: 100px; overflow: auto"/></a></td><!-- 改 -->
+						
+					</tr>
+					
+					 <tr>
+							<h1>
+								<a href="http://localhost:8080/AdminManagerInterface"
+									class="btn btn-custom btn-rounded">回管理頁面</a>
+							</h1>
+				   	 </tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+
+
+        </div>
+      </div>
+      <!-- main content end -->
+
+    </div>
+
+    <!-- footer -->
+    <th:block th:include="admin/adminFooter"/></th:block>
+    
+    <!-- Sidebar 收起按鈕 js -->
+	<script th:src="@{/js/adminSidebar.js}"></script>
+
+  </body>
+</html>

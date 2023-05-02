@@ -1,0 +1,314 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="zh-TW">
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Jquery.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <!-- Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <!-- Bootstrap.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <!-- Bootstrap icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+	  <!-- Font: Aboreto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aboreto&display=swap">
+    <!-- Load jQuery -->
+	<link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+	<script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+	<link rel="stylesheet" href="jqueryui/style.css">
+	
+	
+	<script>
+			//clander_user 
+			$(function () {
+				$("#start_time_user").datepicker({
+					changeMonth: true,			//可以選年份
+					changeYear: true,			//可以切月份
+					dateFormat : "yy-mm-dd",	//設定格式
+					onClose: function (selectedDate) {
+						 $( "#end_time_user" ).datepicker( "option", "minDate_user", selectedDate );
+					}
+				});
+				$("#end_time_user").datepicker({
+					changeMonth: true,
+					changeYear: true,
+					dateFormat : "yy-mm-dd",
+					onClose: function (selectedDate) {
+						 $( "#start_time_user" ).datepicker( "option", "maxDate_user", selectedDate );
+					}
+				});
+			});
+			
+			//clander_orderRoom 
+			$(function () {
+				$("#start_time_orderRoom").datepicker({
+					changeMonth: true,			//可以選年份
+					changeYear: true,			//可以切月份
+					dateFormat : "yy-mm-dd",	//設定格式
+					onClose: function (selectedDate) {
+						 $( "#end_time_orderRoom" ).datepicker( "option", "minDate_orderRoom", selectedDate );
+					}
+				});
+				$("#end_time_orderRoom").datepicker({
+					changeMonth: true,
+					changeYear: true,
+					dateFormat : "yy-mm-dd",
+					onClose: function (selectedDate) {
+						 $( "#start_time_orderRoom" ).datepicker( "option", "maxDate_orderRoom", selectedDate );
+					}
+				});
+			});
+			
+			//clander_RoomSession 
+			$(function () {
+				$("#start_time_RoomSession").datepicker({
+					changeMonth: true,			//可以選年份
+					changeYear: true,			//可以切月份
+					dateFormat : "yy-mm-dd",	//設定格式
+					onClose: function (selectedDate) {
+						 $( "#end_time_RoomSession" ).datepicker( "option", "minDate_RoomSession", selectedDate );
+					}
+				});
+				$("#end_time_RoomSession").datepicker({
+					changeMonth: true,
+					changeYear: true,
+					dateFormat : "yy-mm-dd",
+					onClose: function (selectedDate) {
+						 $( "#start_time_RoomSession" ).datepicker( "option", "maxDate_RoomSession", selectedDate );
+					}
+				});
+			});
+			
+			//clander_OrderCommodity
+			$(function () {
+				$("#start_time_OrderCommodity").datepicker({
+					changeMonth: true,			//可以選年份
+					changeYear: true,			//可以切月份
+					dateFormat : "yy-mm-dd",	//設定格式
+					onClose: function (selectedDate) {
+						 $( "#end_time_OrderCommodity" ).datepicker( "option", "minDate_OrderCommodity", selectedDate );
+					}
+				});
+				$("#end_time_OrderCommodity").datepicker({
+					changeMonth: true,
+					changeYear: true,
+					dateFormat : "yy-mm-dd",
+					onClose: function (selectedDate) {
+						 $( "#start_time_OrderCommodity" ).datepicker( "option", "maxDate_OrderCommodity", selectedDate );
+					}
+				});
+			});
+	</script>
+	
+	<!-- 會員驗證 js -->
+	<script th:src="@{/js/catNav.js}"></script>
+	
+    <title>Cat Hotel Admin Report</title>
+    <style>
+      html,body{
+        height: 100%;
+        background-color: #796E65;
+      }
+      .catnav {
+        height: 9.5vh;
+        font-family: 'Aboreto', cursive;
+        font-weight: bold;
+        font-size: 16px;
+        color: #EBE9E8;
+      }
+      @media(max-width: 991px){
+        .sidebar{
+          background-color: rgba(255,255,255,0.15);
+          backdrop-filter: blur(10px); /* safari ng ; chrome ok */
+          -webkit-backdrop-filter: blur(10px); /* safari ok ; chrome ng */
+        }
+      }
+      #offcanvasLogin{
+        background-color: rgba(255,255,255,0.15);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        color: #fff;
+      }
+      #loginbtn {
+        text-decoration: none;  /* 連結文字無底線 */
+        color: rgba(255,255,255,0.7);
+      }
+      #loginbtn:hover {
+        color: #fff;
+      }
+      #signinbtn {
+        text-decoration: none;  /* 連結文字無底線 */
+        color: #fff;
+        background-color: #b48d06
+      }
+      #signinbtn:hover {
+        box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.4);
+      }
+      .login h2{
+        display: flex;
+        justify-content: center;
+        font-size: 40px;
+        font-family: 'Aboreto', cursive;
+      }
+      .login .btn{
+        background-color: #b48d06;
+        color: #fff;
+      }
+      .login .btn:hover{
+        background-color: #fcb900;
+      }
+      .login a {
+        text-decoration: none;  /* 連結文字無底線 */
+        color: #fff;
+        font-family: 'Aboreto', cursive;
+        font-size: 15px;
+      }
+      .login a:hover {
+        text-decoration: underline;
+      }
+      .catnav {
+        background: #796E65;
+      }
+      .adminSidebar {
+        background: #EBE9E8;
+        color: #796E65;
+      }
+      .adminSidebar a:hover {
+        color: #b48d06;
+      }
+      .content {
+        min-height: 76vh;
+        background-color: #fff;
+      }
+      .table {
+        table-layout: fixed;
+        width: 100%;
+      }
+      select {
+      	font-size: 30px;
+	  }
+      .footer {
+        min-height: 10vh; 
+        background-color: #796E65;
+        color: #fff;
+        font-size: 14px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Navbar -->
+    <th:block th:include="admin/adminNav"/></th:block>
+
+    <!-- Admin Sidebar -->
+    <th:block th:include="admin/adminSidebar"/></th:block>
+
+      <!-- main content  -->
+      <div class="col-12 col-md-9 col-lg-10 content">
+        <div class="row p-3">
+          <!-- Breadcrumb -->
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <span>{</span>
+              <button type="button" class="sidebarBtn" style="width: 35px; border: 0; background-color: #fff;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#796E65" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+                  <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+                </svg>
+              </button><span>}</span>
+              <li class="breadcrumb-item ms-2"><a href="adminReport">Home</a></li>
+              <li class="breadcrumb-item active">Report</li>
+            </ol>
+          </nav>
+          <!-- Breadcrumb end -->
+
+          <!-- File download -->
+        <p></p>
+		<p></p>
+        <div class="title showbackground" >全部使用者資料 :
+		<button id="dowloadBtnUser" class="btn btn-outline-secondary btn-sm" type="button" onclick="location.href='adminReport/downloadAllUsers'"><i class="fa fa-trash-o"></i> user資料下载</button></div>
+		
+		<form action="adminReport/selectTimeUsers" method="post">
+		<table>
+			<div  class="title" >時間查詢使用者 : 
+			<label for="from">從</label>
+			<input type="text" id="start_time_user" name="start_user">
+			<label for="to">到</label>
+			<input type="text" id="end_time_user" name="end_user">
+			<input type="submit" value="下載" class="btn btn-outline-secondary btn-sm"/></div>
+		</table>
+		</form>
+		<p></p>
+		<p></p>
+
+		<div class="title showbackground" >全部訂房資料 : 
+		<button id="dowloadBtnOrderRoom" class="btn btn-outline-secondary btn-sm" type="button" onclick="location.href='adminReport/downloadAllorderRooms'"><i class="fa fa-trash-o"></i> orderRoom資料下载</button></div>
+
+		<form action="adminReport/selectTimeOrderRooms" method="post">
+		<table>
+			<div class="title" >時間查詢訂房資料 : 
+			<label for="from">從</label>
+			<input type="text" id="start_time_orderRoom" name="start_orderRoom">
+			<label for="to">到</label>
+			<input type="text" id="end_time_orderRoom" name="end_orderRoom">
+			<input type="submit" value="下載" class="btn btn-outline-secondary btn-sm"/></div>
+		</table>
+		</form>
+		<p></p>
+		<p></p>
+		
+		<div class="title showbackground">全部入住資料 : 
+		<button id="dowloadBtnRoomSession" class="btn btn-outline-secondary btn-sm" type="button" onclick="location.href='adminReport/downloadAllRoomSessions'"><i class="fa fa-trash-o"></i> RoomSession資料下载</button></div>
+
+		<form action="adminReport/selectTimeRoomSessions" method="post">
+		<table>
+			<div class="title" >時間查詢入住資料 : 
+			<label for="from">從</label>
+			<input type="text" id="start_time_RoomSession" name="start_RoomSession">
+			<label for="to">到</label>
+			<input type="text" id="end_time_RoomSession" name="end_RoomSession">
+			<input type="submit" value="下載" class="btn btn-outline-secondary btn-sm"/></div>
+		</table>
+		</form>
+		<p></p>
+		<p></p>
+		
+		
+		<div class="title showbackground">全部商品訂購資料 : 
+		<button id="dowloadBtnOrderCommodity" class="btn btn-outline-secondary btn-sm" type="button" onclick="location.href='adminReport/downloadAllorderCommodity'"><i class="fa fa-trash-o"></i> 商品訂購資料下载</button></div>
+
+		<form action="adminReport/selectTimeOrderCommodity" method="post">
+		<table>
+			<div class="title">時間查詢商品訂購資料 : 
+			<label for="from">從</label>
+			<input type="text" id="start_time_OrderCommodity" name="start_OrderCommodity">
+			<label for="to">到</label>
+			<input type="text" id="end_time_OrderCommodity" name="end_OrderCommodity">
+			<input type="submit" value="下載" class="btn btn-outline-secondary btn-sm"/></div>
+		</table>
+		</form>
+          <!-- File download end -->
+
+
+
+        </div>
+      </div>
+      <!-- main content end -->
+
+    </div>
+     
+    
+
+    <!-- footer -->
+    <th:block th:include="admin/adminFooter"/></th:block>
+    
+    <!-- Sidebar 收起按鈕 js -->
+	<script th:src="@{/js/adminSidebar.js}"></script>
+
+  </body>
+</html>

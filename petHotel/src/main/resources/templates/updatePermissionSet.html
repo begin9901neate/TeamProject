@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style>
+.btn-custom {
+	background-color: orange; /* 橘色*/
+	color: #FFFFFF; /*白字*/
+}
+</style>
+
+<title>Update PermissionSet</title>
+
+<script>
+	$(document).ready(function() {
+
+						$('#myform')
+								.submit(
+										function(event) {
+											event.preventDefault();
+
+											var email = $("#email").val();
+
+											var id = $("#id").val();
+
+											var data = {
+												"email" : email,
+												"id" : id,
+											};
+
+											$.ajax({
+														url : 'updatePermissionSet',
+														type : 'POST',
+														data : data,
+														/***********/
+														contentType : 'application/x-www-form-urlencoded;charset=UTF-8', //傳送的是預設的表單類型，所以這個其實可以不用寫
+														/**********/
+														success : function(resp,textStatus, xhr) {
+
+															if (xhr.status === 200) {
+																localStorage.setItem('updateDate',resp.userVo.updatedAt);
+																var updateDate = localStorage.getItem('updateDate');
+																// 登入成功，顯示相應的訊息
+																alert(email+ ' 權限更改成功'+ ' 更新時間：'+ updateDate);
+																$("#msg").html("更新時間："+updateDate);
+																localStorage.removeItem('updateDate');
+															} else {
+
+																console.log('權限更新失敗');
+
+																alert('權限更新失敗，請輸入正確使用者Email與權限等級：1~3');
+															}
+														},
+														error : function(xhr,textStatus,errorThrown) {
+
+															alert('權限更新失敗，請輸入正確使用者Email與權限等級：1~3');
+														}
+													});
+
+										});
+					});
+</script>
+
+
+
+</head>
+<body>
+	<div class="container">
+		<div class="text-center">
+			<form action="" method="post" id="myform">
+				<div class="form-group">
+					
+						<label for="email">更新權限的使用者Email：</label>
+						<input type="text" class="form-control" id="email" /> 
+						
+						<label for="id">更新後的權限等級：</label>
+						<input type="text" class="form-control" id="id" /> 
+						
+						<input type="submit" class="form-control" value="送出">
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<div class="container">
+		<div class="text-center">
+	<h4><div id="msg"></div></h4>
+		</div>
+	</div>
+</body>
+</html>

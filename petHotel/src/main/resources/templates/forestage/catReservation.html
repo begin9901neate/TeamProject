@@ -1,0 +1,455 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<html lang="zh-TW">
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Jquery.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <!-- Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <!-- Bootstrap.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>
+    <!-- daterangepicker.js -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <!-- daterangepicker CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+	<!-- Bootstrap icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+	<!-- Font: Aboreto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aboreto&display=swap">
+     
+    <!-- 會員驗證 js -->
+	<script th:src="@{/js/catNav.js}"></script>
+
+    <title>Cat Hotel Reservation</title>
+    <style>
+      html,body{
+        height: 100%;
+        background-color: #fff;
+      }
+      .catnav {
+      	height: 8.5vh;
+        font-family: 'Aboreto', cursive;
+        font-weight: bold;
+        font-size: 16px;
+      }
+      @media(max-width: 991px){
+        .sidebar{
+          background-color: rgba(255,255,255,0.15);
+          backdrop-filter: blur(10px); /* safari ng ; chrome ok */
+          -webkit-backdrop-filter: blur(10px); /* safari ok ; chrome ng */
+        }
+      }
+      #offcanvasLogin{
+        background-color: rgba(255,255,255,0.15);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        color: #fff;
+      }
+      #loginbtn {
+        text-decoration: none;  /* 連結文字無底線 */
+        color: rgba(255,255,255,0.7);
+      }
+      #loginbtn:hover{
+        color: #fff;
+      }
+      #signinbtn {
+        text-decoration: none;  /* 連結文字無底線 */
+        color: #fff;
+        background-color: #fcb900
+      }
+      #signinbtn:hover {
+        box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.4);
+      }
+      .login h2{
+        display: flex;
+        justify-content: center;
+        font-size: 40px;
+        font-family: 'Aboreto', cursive;
+      }
+      .login .btn{
+        background-color: #b48d06;
+        color: #fff;
+      }
+      .login .btn:hover{
+        background-color: #fcb900;
+      }
+      .login a {
+        text-decoration: none;  /* 連結文字無底線 */
+        color: #fff;
+        font-family: 'Aboreto', cursive;
+        font-size: 15px;
+      }
+      .login a:hover{
+        text-decoration: underline;
+      }
+      .catnav {
+        background: #b48d06;
+      }
+      .resPage{
+        min-height: 79vh;
+        background-color: #fff;
+      }
+      .orderInput{
+        border-radius: 0px;
+        border: #b48d06;
+        border-style: solid;
+        border-width: 1px;
+        color: #796E65;
+      }
+	  .roomImg{
+        height: 250px;
+      }
+	  .roomImg img {
+	    object-fit: cover;
+	  }
+      .catroomdescription h3{
+        font-family: 'Aboreto', cursive;
+        color: #b48d06;
+      }
+      .roomDiscription{
+        text-align: center;
+        font-family: 'Aboreto', cursive;
+        font-size: 16px;
+      }
+      .roomDiscriptionValue{
+        text-align: center;
+      }
+      .orderDetail{
+      	border-radius: 10px;
+		box-shadow: 2px 2px 15px rgba(0,0,0,0.3);
+		color: #796E65;
+      }
+      .orderDetail h4 {
+        font-family: 'Aboreto', cursive;
+        color: #b48d06;
+      }
+      .submitBtn {
+        background-color: #b48d06;
+        color: #fff;
+      }
+      .submitBtn:hover {
+        background-color: #fcb900;
+        color: #000;
+      }
+      .modal-title{
+        color: #b48d06;
+        font-family: 'Aboreto', cursive;
+      }
+      .modal-footer button{
+        background-color: #b48d06;
+        color: #fff;
+      }
+      .modal-footer button:hover{
+        background-color: #fcb900;
+      }
+      .footer{
+        min-height: 10vh; 
+        background-color: #b48d06;
+        color: #fff;
+        font-size: 14px;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <th:block th:include="forestage/catNav"/></th:block>
+    
+    <!-- reservation page -->
+    <div class="resPage">
+    
+      <form action="createReservation" method ="post" th:object="${orderRoom}"name="addForm" onsubmit="return validateForm()">
+      
+      	<div class="row ">
+			<div class="col-12 col-lg-8 p-4">
+			
+	          <div class="input-group">
+				<!-- Date Range Picker -->
+				<div class="form-floating">
+		            <input type="text" class="form-control orderInput" name="daterange" id="daterange" value="Select Dates">
+		            <label for="daterange">Check-in / Check-out</label>
+	            </div>
+	            <!-- Date Range Picker end -->
+	            <!-- rooms.id Vaule -->
+	            <select onchange="getRoom()" class="form-select orderInput" id="groupRoom" name="rooms.id">
+		           	<option th:value="0" selected>Select a Room</option>
+		           	<option th:each="rooms : ${roomses}"
+		          		th:value="${rooms.id}" 
+		          		th:text="${rooms.name}">
+		    		</option>
+	            </select>
+	          </div>
+	          
+	          <!-- Users.id Vaule -->
+		      <input type="hidden" name="users.id" th:value="${users.id}"/>
+			  <!-- paymentMethod Value -->
+			  <input type="hidden" name="paymentMethod" id="paymentMethod" value="Credit Card">
+			  <!-- amount & complete Value -->
+			  <input type="hidden" name="amount" id="amount" value="0"/>
+			  <input type="hidden" name="complete" id="complete" value="0"/>
+			  <!-- Check-in & Check-out Time & roomName -->
+			  <input type="hidden" name="checkInTimeInput" id="checkInTimeInput" value="0"/>
+			  <input type="hidden" name="reservationTimeInput" id="reservationTimeInput" value="0"/>
+			  <input type="hidden" name="roomNameInput" id="roomNameInput" value="0"/>
+			  
+			  <!-- Room -->
+			  <div class="mt-3 border" id="room_1" hidden>
+			  	<div class="row">
+			  		<div class="col-12 col-lg-4 my-auto p-3 roomImg">
+			          <img src="img/room_1.jpg" class="w-100 h-100" alt="...">
+			        </div>
+			        <div class="col-12 col-lg-8">
+			          <div class="catroomdescription p-3">
+			            <h3>Superior Suite</h3>
+			            <p>A peaceful and elegant guest room space, where provides guests with comfortable and convenient accommodation experience.</p>
+			            <p class="border-bottom"></p>
+			            <div class="row roomDiscription">
+			              <div class="col-3 border-end">Max Pet Number</div>
+			              <div class="col-3 border-end">Size</div>
+			              <div class="col-3 border-end">Equipments</div>
+			              <div class="col-3">Price</div>
+			            </div>
+			            <div class="row roomDiscriptionValue">
+			              <div class="col-3 border-end">1 Cats</div>
+			              <div class="col-3 border-end">9 Pings</div>
+			              <div class="col-3 border-end">Windows</div>
+			              <div class="col-3">880</div>
+			            </div>
+			          </div>
+			        </div>
+			  	</div>
+		      </div>
+		      
+		      <div class="mt-3 border" id="room_2" hidden>
+			  	<div class="row">
+			  		<div class="col-12 col-lg-4 my-auto p-3 roomImg">
+			          <img src="img/room_2.jpg" class="w-100 h-100" alt="...">
+			        </div>
+			        <div class="col-12 col-lg-8">
+			          <div class="catroomdescription p-3">
+			            <h3>Deluxe Suite</h3>
+			            <p>The independent and spacious living room and bedroom create a cozy and homely accommodation space for guests.</p>
+			            <p class="border-bottom"></p>
+			            <div class="row roomDiscription">
+			              <div class="col-3 border-end">Max Pet Number</div>
+			              <div class="col-3 border-end">Size</div>
+			              <div class="col-3 border-end">Equipments</div>
+			              <div class="col-3">Price</div>
+			            </div>
+			            <div class="row roomDiscriptionValue">
+			              <div class="col-3 border-end">2 Cats</div>
+			              <div class="col-3 border-end">12 Pings</div>
+			              <div class="col-3 border-end">Skywalk</div>
+			              <div class="col-3">1280</div>
+			            </div>
+			          </div>
+			        </div>
+			  	</div>
+		      </div>
+		      
+		      <div class="mt-3 border" id="room_3" hidden>
+			  	<div class="row">
+			  		<div class="col-12 col-lg-4 my-auto p-3 roomImg">
+			          <img src="img/room_3.jpg" class="w-100 h-100" alt="...">
+			        </div>
+			        <div class="col-12 col-lg-8">
+			          <div class="catroomdescription p-3">
+			            <h3>Premier Suite</h3>
+			            <p>The exquisite parlor separates the living room and bedroom area has an independent classical bathtub and massive windows.</p>
+			            <p class="border-bottom"></p>
+			            <div class="row roomDiscription">
+			              <div class="col-3 border-end">Max Pet Number</div>
+			              <div class="col-3 border-end">Size</div>
+			              <div class="col-3 border-end">Equipments</div>
+			              <div class="col-3">Price</div>
+			            </div>
+			            <div class="row roomDiscriptionValue">
+			              <div class="col-3 border-end">4 Cats</div>
+			              <div class="col-3 border-end">15 Pings</div>
+			              <div class="col-3 border-end">Balcony</div>
+			              <div class="col-3">1880</div>
+			            </div>
+			          </div>
+			        </div>
+			  	</div>
+		      </div>
+		      
+			</div>
+			
+			<!-- OrderDetail -->
+	        <div class="col-12 col-lg-4 p-4">
+	          <div class="orderDetail p-4 ">
+	            <h4>Order Detail</h4>
+	            <div class="row mb-2">
+	              <div class="col-6 orderDetailItem">Check-in Time</div>
+	              <div class="col-6" id="checkInTime"></div>
+	            </div>
+	            <div class="row mb-2">
+	              <div class="col-6 orderDetailItem">Check-out Time</div>
+	              <div class="col-6" id="reservationTime"></div>
+	            </div>
+	            <div class="row mb-2">
+	              <div class="col-6 orderDetailItem">Room</div>
+	              <div class="col-6" id="roomName"></div>
+	            </div>
+	            <div class="row">
+	              <div class="col-6 orderDetailItem">Total</div>
+	              <div class="col-6" id="showAmount"></div>
+	            </div>
+	
+	            <Hr>
+				
+	            <h4>Payment</h4>
+	            <!-- paymentMethod Value -->
+	            <div class="payment">
+			        <div class="form-check">
+			          <input class="form-check-input" type="radio" name="paymentRadioBtn" id="paymentRadioBtn1" value="Credit Card" checked>
+			          <label class="form-check-label" for="paymentRadioBtn1">Credit Card</label>
+			        </div>
+			        <div class="form-check">
+			          <input class="form-check-input" type="radio" name="paymentRadioBtn" id="paymentRadioBtn2" value="Apple Pay">
+			          <label class="form-check-label" for="paymentRadioBtn2">Apple Pay</label>
+			        </div>
+			        <div class="form-check">
+			          <input class="form-check-input" type="radio" name="paymentRadioBtn" id="paymentRadioBtn3" value="Line Pay">
+			          <label class="form-check-label" for="paymentRadioBtn3">Line Pay</label>
+			        </div>
+			        <div class="form-check">
+			          <input class="form-check-input" type="radio" name="paymentRadioBtn" id="paymentRadioBtn4" value="JKO Pay">
+			          <label class="form-check-label" for="paymentRadioBtn4">JKO Pay</label>
+			        </div>
+			        <div class="form-check">
+			          <input class="form-check-input" type="radio" name="paymentRadioBtn" id="paymentRadioBtn5" value="Cash">
+			          <label class="form-check-label" for="paymentRadioBtn5">Cash</label>
+			        </div>
+			      </div>
+			      
+			      <button type="submit" class="btn w-100 mt-3 submitBtn">Book</button>
+<!-- 			      <button type="submit" class="btn w-100 mt-3 submitBtn" data-bs-toggle="modal" data-bs-target="#orderModal">Book</button> -->
+	            
+	          </div>
+	        </div>
+	      </div>
+      </form>
+    </div>
+    
+      <!-- paymentmethod radioButton on-click 同步 value -->
+      <script>
+		  var radios = document.getElementsByClassName("payment")[0].querySelectorAll('input[name="paymentRadioBtn"]');
+		  for (var i = 0 ; i < radios.length ; i++) {
+		    radios[i].onclick = function () {
+		      document.getElementById("paymentMethod").value = this.value;
+		    }
+		  }
+	  </script>
+			
+      <!-- 取得 drop down value -->
+      <script>
+		function getRoom() {
+		  var prices = [0, 880, 1280, 1880];
+		  var roomId = document.getElementById("groupRoom").value;
+		  var rooms = document.querySelectorAll("[id^='room_']");
+		
+		  rooms.forEach((room, index) => {
+			  if (index+1 == roomId) {
+			  	room.hidden = false;
+			  } else {
+			  	room.hidden = true;
+			  }
+		  });
+		  var diffDays;
+		  var date1 = new Date(document.getElementById("checkInTime").textContent).getTime();
+		  var date2 = new Date(document.getElementById("reservationTime").textContent).getTime();
+		  var diffDays = Math.round(Math.abs(date2 - date1) / (24 * 60 * 60 * 1000)); // 天數
+		
+		  var price = prices[roomId];
+		  var amount = price * diffDays;
+
+		  if (isNaN(amount)) {
+			  amount = 0;
+		  }
+		
+		  document.getElementById("roomName").innerHTML = document.getElementById("groupRoom").options[roomId].text;
+		  document.getElementById("showAmount").innerHTML = amount;
+		  document.getElementById("amount").value = amount;
+		  document.getElementById("complete").value = amount;
+
+		  document.getElementById("roomNameInput").value = document.getElementById("groupRoom").options[roomId].text;
+
+
+		  
+		}
+	  </script>
+      
+	  <!-- 設定 date ranger 參數 -->
+	  <script>
+	    $(function() {
+	    	  const today = new Date(); // 獲取當前日期
+	    	  $('input[name="daterange"]').daterangepicker({
+	    	    alwaysShowCalendars: true,
+	            autoUpdateInput: false,
+	            minDate: today,
+	            locale: {
+	              cancelLabel: 'Clear',
+	            }
+	    	  }
+	    	  , function(start, end, label) {
+	    		  document.getElementById("checkInTime").innerHTML=start.format('YYYY-MM-DD');
+	    		  document.getElementById("reservationTime").innerHTML=end.format('YYYY-MM-DD');
+	    		  
+	    		  document.getElementById("checkInTimeInput").value = start.format('YYYY-MM-DD');
+	    		  document.getElementById("reservationTimeInput").value = end.format('YYYY-MM-DD');
+	    	  });
+	
+	    	  $('input[name="daterange"]').on('apply.daterangepicker', function(ev, picker) {
+	    	      $(this).val(picker.startDate.format('YYYY-MM-DD') + ' / ' + picker.endDate.format('YYYY-MM-DD'));
+	    	      /* picker.show(); */ /* 重新顯示日曆 */
+	    	      getRoom(); /* 用來更新價格 */
+	    	  });
+	
+	    	  $('input[name="daterange"]').on('cancel.daterangepicker', function(ev, picker) {
+	    	      $(this).val('Select Dates');
+	    	  });
+	    });
+	    </script>
+	    
+	    <!-- 檢查是否有空值 -->
+	    <script>
+	    	function validateForm() {
+	    	  var userId = document.forms["addForm"]["users.id"].value;
+	    	  var roomId = document.forms["addForm"]["rooms.id"].value;
+	    	  var amount = document.forms["addForm"]["amount"].value;
+	    	  var errorMsg = "";
+
+	    	  if (userId === "") {
+	    	    alert("Please login.");
+	    	    return false;
+	    	  }
+
+	    	  if (roomId === "0") {
+	    	    errorMsg = "Please select a room.";
+	    	  } else if (amount === "0") {
+	    	    errorMsg = "Please select dates.";
+	    	  }
+
+	    	  if (errorMsg !== "") {
+	    	    alert(errorMsg);
+	    	    return false;
+	    	  }
+
+	    	  return true;
+	    	}
+		</script>
+
+    <!-- footer -->
+    <th:block th:include="forestage/catFooter"/></th:block>
+        
+  </body>
+</html>
+

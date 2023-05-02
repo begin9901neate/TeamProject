@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Jquery.js -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <!-- Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <!-- Bootstrap.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.min.js" integrity="sha384-heAjqF+bCxXpCWLa6Zhcp4fu20XoNIA98ecBC1YkdXhszjoejr5y9Q77hIrv8R9i" crossorigin="anonymous"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <!-- Font: Aboreto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aboreto&display=swap">
+
+    <title>Login</title>
+    <style>
+      html,body{
+        height: 100%;
+      }
+      body{
+        background-image: url("img/login.jpg");
+        background-position: center; /* Center the image */
+        background-attachment: fixed;
+        background-repeat: no-repeat; /* no-repeat: Do not repeat the image */
+        background-size: cover; /* Resize the background image to cover the entire container */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .login{
+        width: 80%;
+        height: 80%;
+        background-color: rgba(255,255,255,0.1);
+        backdrop-filter: blur(4px); /* safari ng ; chrome ok */
+        -webkit-backdrop-filter: blur(4px); /* safari ok ; chrome ng */
+        border-radius: 20px;
+        padding: 20px;
+        color:#fff
+      }
+      form h2{
+        display: flex;
+        justify-content: center;
+        font-size: 40px;
+        font-family: 'Aboreto', cursive;
+      }
+      form .btn{
+        background-color: #b48d06;
+        color: #fff;
+      }
+      form .btn:hover{
+        background-color: #fcb900;
+      }
+      a {
+        text-decoration: none;  /* 連結文字無底線 */
+        color: #fff;
+        font-family: 'Aboreto', cursive;
+        font-size: 15px;
+      }
+      a:hover{
+        text-decoration: underline;
+      }
+
+    </style>
+    <!-- 新增整個script -->
+    <script>
+	$(document).ready(function() {
+
+		<!--取消按鈕-->
+		function goHome() {
+			window.location.href = "http://localhost:8080/";
+			console.log('goHome is run');
+		}
+
+		$("#backHome").click(goHome);
+		console.log('back is run');
+
+		$('#formLogin').submit(function(event) {
+			event.preventDefault();
+
+			var email = $("#email").val();
+
+			var password = $("#pwd").val();
+
+			var data = {
+				"email" : email,
+				"password" : password,
+			};
+
+			$.ajax({
+				url : 'Pet',
+				type : 'POST',
+				data : data,
+				success : function(resp, textStatus, xhr) {
+
+					if (xhr.status === 200) {
+
+						// 登入成功，顯示相應的訊息
+
+						localStorage.setItem('myUserId', resp.user.email);
+						//alert(myUserId);
+						alert('登入成功!');
+						$("#loginbtn").text('Logout');
+						console.log(localStorage.getItem('myUserId'));
+						//window.location.href = 'http://localhost:8080/';
+						
+					} else {
+
+						console.log('登入失敗，請檢查您的帳號密碼');
+
+						alert('登入失敗，請檢查您的帳號密碼！');
+					}
+				},
+				error : function(xhr, textStatus, errorThrown) {
+
+					alert('登入失敗，請檢查您的帳號密碼！');
+				}
+			});
+
+		});
+	});
+	</script>
+ 	<!-- 新增整個script -->
+    
+    
+  </head>
+  <body>
+						<!-- 新增action="login" method="post" id="formLogin" -->
+    <form class="login" action="login" method="post" id="formLogin">
+      <h2>Login</h2>
+      <div class="form-group mb-3">
+        <label for="email">Email Address</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter email address" name="email" required>
+        <div class="valid-feedback">Valid.</div>
+        <div class="invalid-feedback">Please fill out this field.</div>
+      </div>
+      <div class="form-group mb-3">
+        <label for="pwd">Password</label>
+        <input type="password" class="form-control inputa" id="pwd" placeholder="Enter password" name="pswd" required>
+        <div class="valid-feedback">Valid.</div>
+        <div class="invalid-feedback">Please fill out this field.</div>
+      </div>
+      <div class="row mt-5 mb-3">
+        <div class="col-6">
+          <button type="submit" class="btn w-100">Login</button>
+        </div>
+        <div class="col-6">						<!-- Cancel改名為Back Home  新增id-->
+          <button type="submit" class="btn w-100" id="backHome">Back Home</button>
+        </div>
+      </div>
+      <a href="http://localhost:8080/Register">Not a Member Yet? Join Now</a>
+    		<!-- 更改：將原先直連signup頁面改為先透過Controller內的/Register 的url再連到signup頁面 -->
+    </form>
+    
+  </body>
+</html>

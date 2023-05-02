@@ -1,0 +1,202 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>
+		pet system report
+	</title>
+	<!-- Load AngularJS -->
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.8.1/angular.min.js"></script>
+	<!-- Load jQuery -->
+	<link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
+	<script src="//apps.bdimg.com/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="//apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+	<link rel="stylesheet" href="jqueryui/style.css">
+	
+	<script>
+			//clander_user 
+			$(function () {
+				$("#start_time_user").datepicker({
+					changeMonth: true,			//可以選年份
+					changeYear: true,			//可以切月份
+					dateFormat : "yy-mm-dd",	//設定格式
+					onClose: function (selectedDate) {
+						 $( "#end_time_user" ).datepicker( "option", "minDate_user", selectedDate );
+					}
+				});
+				$("#end_time_user").datepicker({
+					changeMonth: true,
+					changeYear: true,
+					dateFormat : "yy-mm-dd",
+					onClose: function (selectedDate) {
+						 $( "#start_time_user" ).datepicker( "option", "maxDate_user", selectedDate );
+					}
+				});
+			});
+			
+			//clander_orderRoom 
+			$(function () {
+				$("#start_time_orderRoom").datepicker({
+					changeMonth: true,			//可以選年份
+					changeYear: true,			//可以切月份
+					dateFormat : "yy-mm-dd",	//設定格式
+					onClose: function (selectedDate) {
+						 $( "#end_time_orderRoom" ).datepicker( "option", "minDate_orderRoom", selectedDate );
+					}
+				});
+				$("#end_time_orderRoom").datepicker({
+					changeMonth: true,
+					changeYear: true,
+					dateFormat : "yy-mm-dd",
+					onClose: function (selectedDate) {
+						 $( "#start_time_orderRoom" ).datepicker( "option", "maxDate_orderRoom", selectedDate );
+					}
+				});
+			});
+			
+			//clander_RoomSession 
+			$(function () {
+				$("#start_time_RoomSession").datepicker({
+					changeMonth: true,			//可以選年份
+					changeYear: true,			//可以切月份
+					dateFormat : "yy-mm-dd",	//設定格式
+					onClose: function (selectedDate) {
+						 $( "#end_time_RoomSession" ).datepicker( "option", "minDate_RoomSession", selectedDate );
+					}
+				});
+				$("#end_time_RoomSession").datepicker({
+					changeMonth: true,
+					changeYear: true,
+					dateFormat : "yy-mm-dd",
+					onClose: function (selectedDate) {
+						 $( "#start_time_RoomSession" ).datepicker( "option", "maxDate_RoomSession", selectedDate );
+					}
+				});
+			});
+			
+			//clander_OrderCommodity
+			$(function () {
+				$("#start_time_OrderCommodity").datepicker({
+					changeMonth: true,			//可以選年份
+					changeYear: true,			//可以切月份
+					dateFormat : "yy-mm-dd",	//設定格式
+					onClose: function (selectedDate) {
+						 $( "#end_time_OrderCommodity" ).datepicker( "option", "minDate_OrderCommodity", selectedDate );
+					}
+				});
+				$("#end_time_OrderCommodity").datepicker({
+					changeMonth: true,
+					changeYear: true,
+					dateFormat : "yy-mm-dd",
+					onClose: function (selectedDate) {
+						 $( "#start_time_OrderCommodity" ).datepicker( "option", "maxDate_OrderCommodity", selectedDate );
+					}
+				});
+			});
+	</script>
+
+	<style>
+		.button {
+			cursor: pointer;
+			color: blue;
+		}
+
+		td,
+		th {
+			border: 1px solid gray;
+			width: 25%;
+			text-align: left;
+		}
+
+		table {
+			width: 600px;
+		}
+		
+		.title{
+			width: 60%;
+			float: left;
+		}
+		
+		.downloadbutton{
+			width: 25%;
+			float: left;
+		}
+		.showbackground{
+			background-color:LightGray;
+		}
+	</style>
+
+	<head>
+
+	<body>
+		<h1>
+			pet system report
+		</h1>
+		<div class="title showbackground" >全部使用者資料</div>
+		<div class="downloadbutton showbackground" ><button id="dowloadBtnUser" class="btn btn-info" type="button" onclick="location.href='downloadAllUsers'"><i class="fa fa-trash-o"></i> user資料下载</button></div>
+		
+		<form action="selectTimeUsers" method="post">
+		<table>
+			<div  class="title" >時間查詢使用者</div>
+			<div  class="title" ><label for="from">從</label>
+			<input type="text" id="start_time_user" name="start_user">
+			<label for="to">到</label>
+			<input type="text" id="end_time_user" name="end_user"></div>
+			<div class="downloadbutton" ><input type="submit" value="下載" /></div>
+		</table>
+		</form>
+		
+		
+
+		<div class="title showbackground" >全部訂房資料</div>
+		<div class="downloadbutton showbackground" ><button id="dowloadBtnOrderRoom" class="btn btn-info " type="button" onclick="location.href='downloadAllorderRooms'"><i class="fa fa-trash-o"></i> orderRoom資料下载</button></div>
+
+		<form action="selectTimeOrderRooms" method="post">
+		<table>
+			<div class="title" >時間查詢訂房資料</div>
+			<div class="title" ><label for="from">從</label>
+			<input type="text" id="start_time_orderRoom" name="start_orderRoom">
+			<label for="to">到</label>
+			<input type="text" id="end_time_orderRoom" name="end_orderRoom"></div>
+			<div class="downloadbutton" ><input type="submit" value="下載" /></div>
+		</table>
+		</form>
+		
+		
+		<div class="title showbackground">全部入住資料</div>
+		<div class="downloadbutton showbackground" ><button id="dowloadBtnRoomSession" class="btn btn-info " type="button" onclick="location.href='downloadAllRoomSessions'"><i class="fa fa-trash-o"></i> RoomSession資料下载</button></div>
+
+		<form action="selectTimeRoomSessions" method="post">
+		<table>
+			<div class="title" >時間查詢入住資料</div>
+			<div class="title" ><label for="from">從</label>
+			<input type="text" id="start_time_RoomSession" name="start_RoomSession">
+			<label for="to">到</label>
+			<input type="text" id="end_time_RoomSession" name="end_RoomSession"></div>
+			<div class="downloadbutton" ><input type="submit" value="下載" /></div>
+		</table>
+		</form>
+
+		
+		
+		<div class="title showbackground">全部商品訂購資料</div>
+		<div class="downloadbutton showbackground" ><button id="dowloadBtnOrderCommodity" class="btn btn-info " type="button" onclick="location.href='downloadAllorderCommodity'"><i class="fa fa-trash-o"></i> 商品訂購資料下载</button></div>
+
+		<form action="selectTimeOrderCommodity" method="post">
+		<table>
+			<div class="title">時間查詢商品訂購資料</div>
+			<div class="title"><label for="from">從</label>
+			<input type="text" id="start_time_OrderCommodity" name="start_OrderCommodity">
+			<label for="to">到</label>
+			<input type="text" id="end_time_OrderCommodity" name="end_OrderCommodity"></div>
+			<div class="downloadbutton" ><input type="submit" value="下載" /></div>
+		</table>
+		</form>
+
+
+
+
+	</body>
+
+</html>

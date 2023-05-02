@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Room management</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Room management</h1>
+	
+<input type="button" onclick="location.href='new_Room'" value="Create new Room" />
+
+        <table border="1">
+          <thead>
+            <th>店鋪</th>
+            <th>房名</th>
+            <th>可容納寵物數量</th>
+            <th>房間尺寸</th>
+            <th>設備</th>
+            <th>價格</th>
+            <th>備註</th>
+            <th>修改</th>
+            <th>刪除</th>
+		  </thead>
+		  
+		  <tr th:each="room : ${listRoom} " th:object="${room}">
+		  	<td th:text="*{branch.name}"></td>
+		  	<td th:text="*{name}"></td>
+		  	<td th:text="*{maxPetNumber}"></td>
+		  	<td th:text="*{size}"></td>
+		  	<td th:text="*{equipment}"></td>
+		  	<td th:text="*{price}"></td>
+		  	<td th:text="*{note}"></td>
+		  	<td><a th:href="@{RoomUpdate(id=${room.id})}">修改</a></td> 
+		  	<td><a th:href="@{RoomDelete(id=${room.id})}">刪除</a></td> 		  	
+		  </tr>		 		
+		</table>		
+    </div>
+</body>
+
+</html>

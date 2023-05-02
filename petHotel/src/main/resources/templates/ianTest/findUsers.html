@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>PermissionSet & Users</title>
+</head>
+<body>
+<h3>PermissionSet</h3>
+<table border="1">
+  <tr>
+  <th>編號</th>
+  <th>職位中文</th>
+  <th>職位英文</th>
+  <th>使用者權限</th>
+  <th>房型權限</th>
+  <th>商品權限</th>
+  <th>訂單權限</th>
+  <th>許可權限</th>
+
+ </tr>
+    <tr th:each="ps : ${permissionSets} " th:object="${ps}">
+        <td th:text="*{id}"></td>
+        <td th:text="*{tittleCn}"></td>
+        <td th:text="*{tittleEn}"></td>
+        <td th:text="*{memberMana}"></td>
+        <td th:text="*{roomMana}"></td>
+        <td th:text="*{commodityMana}"></td>
+        <td th:text="*{workOrderMana}"></td>
+        <td th:text="*{permissionMana}"></td>
+    </tr>
+</table>
+
+<h3>Users</h3>
+<form action="findUsersByPermission" method ="post">
+	職位中文:
+	<select name = "permissionSet" th:field="${permissionSet.id}">
+		<option th:each="permissionSet : ${permissionSets}" 
+	          	th:value="${permissionSet.id}" 
+	          	th:text="${permissionSet.tittleCn}">
+	    </option>
+	</select>
+
+	<input type="submit" value="Submit"/>
+	<a href="findUsers"><input type="button" value="Show All Users"/></a>
+</form>
+
+<table border="1">
+  <tr>
+  <th>編號</th>
+  <th>職位英文</th>
+  <th>email</th>
+  <th>密碼</th>
+  <th>中文姓名</th>
+  <th>英文姓名</th>
+  <th>手機</th>
+  <th>地址</th>
+  <th>年紀</th>
+  <th>性別</th>
+  <th>建立時間</th>
+  <th>更新時間</th>
+  <th>刪除時間</th>
+ </tr>
+    <tr th:each="us : ${userses} " th:object="${us}">
+        <td th:text="*{id}"></td>
+        <td th:text="*{permissionSet.tittleEn}"></td>
+        <td th:text="*{email}"></td>
+        <td th:text="*{password}"></td>
+        <td th:text="*{chinesName}"></td>
+        <td th:text="*{englishName}"></td>
+        <td th:text="*{cellphone}"></td>
+        <td th:text="*{address}"></td>
+        <td th:text="*{age}"></td>
+        <td th:text="*{gender}"></td>
+        <td th:text="*{createdAt}"></td>
+        <td th:text="*{updatedAt}"></td>
+        <td th:text="*{deletedAt}"></td>
+    </tr>
+</table>
+
+</body>
+</html>
